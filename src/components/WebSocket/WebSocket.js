@@ -31,6 +31,10 @@ class WithWebSocket extends React.Component {
         onClose(event);
       }
     };
+
+    ws.onerror = function(error) {
+      console.error(error.messages);
+    };
   }
 
   componentWillUnmount() {

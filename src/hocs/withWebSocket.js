@@ -1,45 +1,40 @@
 import React from "react";
-import WebSocket from "../components/WebSocket/WebSocket";
+import { string } from "prop-types";
 import getDisplayName from "../helpers/getDisplayName";
+import api from "../api";
 
 export default Component => {
   class WithWebSocket extends React.Component {
-    state = {
-      data: []
-    };
+    constructor(props) {
+      super(props);
+      this.api = api(props.coin);
+      this.state = {
+        data: []
+      };
+    }
 
-    onOpen = ws => {
-      ws.send(JSON.stringify({ type: "subscribe", currency: this.props.coin }));
-    };
-
-    beforeClose = ws => {
-      ws.send(
-        JSON.stringify({ type: "unsubscribe", currency: this.props.coin })
-      );
-    };
-
-    onMessage = data => {
-      this.setState(prevState => {
-        return { data: [...prevState.data, JSON.parse(data)] };
+    componentDidMount() {
+      this.unsubscribe = this.api.subscribe(data => {
+        this.setState(prevState => {
+          return { data: [...prevState.data, JSON.parse(data)] };
+        });
       });
-    };
+    }
+
+    componentWillUnmount() {
+      this.unsubscribe();
+    }
 
     render() {
-      return (
-        <React.Fragment>
-          <WebSocket
-            url="ws://coins-stream.demo.javascript.ninja"
-            onOpen={this.onOpen}
-            onMessage={this.onMessage}
-            beforeClose={this.beforeClose}
-          />
-          <Component {...this.props} data={this.state.data} />
-        </React.Fragment>
-      );
+      return <Component {...this.props} data={this.state.data} />;
     }
   }
 
   WithWebSocket.displayName = `withWebSocket(${getDisplayName(Component)})`;
+
+  WithWebSocket.propTypes = {
+    coin: string.isRequired
+  };
 
   return WithWebSocket;
 };

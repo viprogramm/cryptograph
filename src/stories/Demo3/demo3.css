@@ -1,0 +1,8 @@
+.demo3 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.demo3 > div {
+    width: 250px;
+}

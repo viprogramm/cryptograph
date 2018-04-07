@@ -1,0 +1,7 @@
+.demo2 {
+    display: flex;
+    justify-content: center;
+}
+.demo2 > div {
+    width: 300px;
+}

@@ -34,21 +34,37 @@ describe("Graph", () => {
 
   test("with all props", () => {
     const data = [100, 50, 0, 10, 90];
+    const className = "svg";
+    const fill = "#ff0000";
+    const stroke = "#00ff00";
+    const strokeWidth = 1;
+    const width = 100;
+    const height = 100;
+    const count = 5;
 
     const wrapper = shallow(
       <Graph
-        className="svg"
-        fill="#ff0000"
-        stroke="#00ff00"
-        strokeWidth={1}
+        className={className}
+        fill={fill}
+        stroke={stroke}
+        strokeWidth={strokeWidth}
         data={data}
-        width={100}
-        height={100}
+        width={width}
+        height={height}
         count={5}
       />
     );
-    expect(wrapper.html()).toBe(
-      `<svg class="svg" width="100" height="100"><path d="M 0 100 L 0 10 L 25 90 L 50 100 L 75 50 L 100 0 L 100 100 z" fill="#ff0000" stroke="#00ff00" stroke-width="1"></path></svg>`
+
+    expect(wrapper.prop("className")).toBe(className);
+    expect(wrapper.prop("width")).toBe(width);
+    expect(wrapper.prop("height")).toBe(height);
+
+    const path = wrapper.find("path");
+    expect(path.prop("fill")).toBe(fill);
+    expect(path.prop("stroke")).toBe(stroke);
+    expect(path.prop("strokeWidth")).toBe(strokeWidth);
+    expect(path.prop("d")).toBe(
+      "M 0 100 L 0 10 L 25 90 L 50 100 L 75 50 L 100 0 L 100 100 z"
     );
   });
 });

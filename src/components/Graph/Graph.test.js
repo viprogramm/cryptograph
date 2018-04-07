@@ -51,7 +51,7 @@ describe("Graph", () => {
         data={data}
         width={width}
         height={height}
-        count={5}
+        count={count}
       />
     );
 

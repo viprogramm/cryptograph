@@ -1,7 +1,7 @@
 import React from "react";
 import { string, array, number } from "prop-types";
 import Label from "../Label/Label";
-import Rate from "../Rate/Rate";
+import Statistics from "../Statistics/Statistics";
 import Graph from "../Graph/Graph";
 
 import "./style.css";
@@ -11,7 +11,7 @@ const Widget = props => {
   return (
     <div>
       <Label coin={coin} currency="USD" />
-      <Rate rates={data} />
+      <Statistics data={data} />
       <Graph className="svg" data={data} count={count} />
     </div>
   );

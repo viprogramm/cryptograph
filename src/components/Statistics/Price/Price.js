@@ -10,8 +10,7 @@ const Price = ({ data = [], className }) => {
   const currentValue = data[data.length - 1];
   const prevValue = data.length > 1 ? data[data.length - 2] : null;
 
-  const difference =
-    prevValue === null ? null : +(currentValue - prevValue).toFixed(10);
+  const difference = prevValue === null ? null : currentValue - prevValue;
 
   const classes = classNames(
     {
@@ -22,7 +21,9 @@ const Price = ({ data = [], className }) => {
     className
   );
 
-  return <span className={classes}>${currentValue}</span>;
+  const roundedCurrentValue = +parseFloat(currentValue).toFixed(3);
+
+  return <span className={classes}>${roundedCurrentValue}</span>;
 };
 
 Price.propTypes = {

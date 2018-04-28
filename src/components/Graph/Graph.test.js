@@ -11,24 +11,24 @@ describe("Graph", () => {
       <Graph data={data} width={100} height={100} count={5} />
     );
     expect(wrapper.find("path").prop("d")).toBe(
-      "M 0 100 L 0 10 L 25 90 L 50 100 L 75 50 L 100 0 L 100 100 z"
+      "M 0 100 L 0 18 L 25 82 L 50 90 L 75 50 L 100 10 L 100 100 z"
     );
 
     wrapper = shallow(<Graph data={data} width={200} height={100} count={5} />);
     expect(wrapper.find("path").prop("d")).toBe(
-      "M 0 100 L 0 10 L 50 90 L 100 100 L 150 50 L 200 0 L 200 100 z"
+      "M 0 100 L 0 18 L 50 82 L 100 90 L 150 50 L 200 10 L 200 100 z"
     );
 
     wrapper = shallow(<Graph data={data} width={100} height={200} count={5} />);
     expect(wrapper.find("path").prop("d")).toBe(
-      "M 0 200 L 0 20 L 25 180 L 50 200 L 75 100 L 100 0 L 100 200 z"
+      "M 0 200 L 0 28 L 25 172 L 50 190 L 75 100 L 100 10 L 100 200 z"
     );
 
     wrapper = shallow(
       <Graph data={data} width={100} height={100} count={11} />
     );
     expect(wrapper.find("path").prop("d")).toBe(
-      "M 0 100 L 0 10 L 10 90 L 20 100 L 30 50 L 40 0 L 40 100 z"
+      "M 0 100 L 0 18 L 10 82 L 20 90 L 30 50 L 40 10 L 40 100 z"
     );
   });
 
@@ -41,6 +41,7 @@ describe("Graph", () => {
     const width = 100;
     const height = 100;
     const count = 5;
+    const extremumMargin = 0;
 
     const wrapper = shallow(
       <Graph
@@ -52,6 +53,7 @@ describe("Graph", () => {
         width={width}
         height={height}
         count={count}
+        extremumMargin={extremumMargin}
       />
     );
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { string, array, number } from "prop-types";
 
-const generatePath = (width, height, data, count) => {
+const generatePath = (width, height, data, count, extremumMargin) => {
   const maxValue = Math.max(...data);
   const minValue = Math.min(...data);
   const diff = maxValue - minValue;
@@ -14,7 +14,9 @@ const generatePath = (width, height, data, count) => {
     if (diff === 0) {
       return height;
     }
-    return height * (maxValue - value) / diff;
+    return (
+      (height - extremumMargin * 2) * (maxValue - value) / diff + extremumMargin
+    );
   };
 
   const points = [`0 ${height}`];
@@ -36,14 +38,15 @@ const Graph = ({
   stroke = "#a22921",
   strokeWidth = 2,
   data = [],
-  count = 10
+  count = 10,
+  extremumMargin = 10
 }) => {
   if (data.length < 1) {
     return null;
   }
 
   const graphData = data.slice(-count).reverse();
-  const path = generatePath(width, height, graphData, count);
+  const path = generatePath(width, height, graphData, count, extremumMargin);
 
   return (
     <svg className={className} width={width} height={height}>
@@ -60,7 +63,8 @@ Graph.propTypes = {
   stroke: string,
   strokeWidth: number,
   data: array,
-  count: number
+  count: number,
+  extremumMargin: number
 };
 
 export default Graph;

@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 const Percent = ({ data = [], className }) => {
   if (data.length < 2) {
-    return null;
+    return <span className={className}>(0%)</span>;
   }
 
   const currentValue = data[data.length - 1];
@@ -18,8 +18,7 @@ const Percent = ({ data = [], className }) => {
   const classes = classNames(
     {
       fell: difference < 0,
-      up: difference > 0,
-      general: true
+      up: difference > 0
     },
     className
   );

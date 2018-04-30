@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 const Price = ({ data = [], className }) => {
   if (data.length === 0) {
-    return null;
+    return <span className={className}>$0</span>;
   }
 
   const currentValue = data[data.length - 1];
@@ -15,8 +15,7 @@ const Price = ({ data = [], className }) => {
   const classes = classNames(
     {
       fell: difference < 0,
-      up: difference > 0,
-      recent: true
+      up: difference > 0
     },
     className
   );

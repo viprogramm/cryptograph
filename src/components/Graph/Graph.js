@@ -1,6 +1,23 @@
 import React from "react";
 import { string, array, number } from "prop-types";
 
+const generateDumpData = (count, minValue) => new Array(count).fill(minValue);
+
+const fillDataForPath = (data, count) => {
+  const maxValue = data.length === 0 ? 0 : Math.max(...data);
+  const minValue = data.length === 0 ? 0 : Math.min(...data);
+  const diff = maxValue - minValue;
+
+  let dumpValue = minValue;
+  if (data.length === 1) {
+    dumpValue = minValue / 2;
+  } else if (data[data.length - 1] === minValue && data.length < count) {
+    dumpValue = diff !== 0 ? minValue - diff / 2 : minValue / 2;
+  }
+
+  return [...data, ...generateDumpData(count, dumpValue)].slice(0, count);
+};
+
 const generatePath = (width, height, data, count, extremumMargin) => {
   const maxValue = Math.max(...data);
   const minValue = Math.min(...data);
@@ -12,7 +29,7 @@ const generatePath = (width, height, data, count, extremumMargin) => {
 
   const getY = value => {
     if (diff === 0) {
-      return height;
+      return height - extremumMargin;
     }
     return (
       (height - extremumMargin * 2) * (maxValue - value) / diff + extremumMargin
@@ -41,12 +58,9 @@ const Graph = ({
   count = 10,
   extremumMargin = 10
 }) => {
-  if (data.length < 1) {
-    return null;
-  }
-
   const graphData = data.slice(-count).reverse();
-  const path = generatePath(width, height, graphData, count, extremumMargin);
+  const filledData = fillDataForPath(graphData, count);
+  const path = generatePath(width, height, filledData, count, extremumMargin);
 
   return (
     <svg className={className} width={width} height={height}>

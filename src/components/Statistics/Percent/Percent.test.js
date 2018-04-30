@@ -6,12 +6,12 @@ import Percent from "./Percent";
 describe("Statistics", () => {
   test("without data", () => {
     const wrapper = shallow(<Percent />);
-    expect(wrapper.html()).toBe(null);
+    expect(wrapper.html()).toBe("<span>(0%)</span>");
   });
 
   test("with one data value", () => {
     const wrapper = shallow(<Percent data={[10]} />);
-    expect(wrapper.html()).toBe(null);
+    expect(wrapper.html()).toBe("<span>(0%)</span>");
   });
 
   test("with data", () => {

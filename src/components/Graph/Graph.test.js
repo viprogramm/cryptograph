@@ -23,12 +23,86 @@ describe("Graph", () => {
     expect(wrapper.find("path").prop("d")).toBe(
       "M 0 200 L 0 28 L 25 172 L 50 190 L 75 100 L 100 10 L 100 200 z"
     );
+  });
+
+  test("incomplete data for path", () => {
+    let wrapper = shallow(
+      <Graph
+        data={[100]}
+        width={100}
+        height={100}
+        count={2}
+        extremumMargin={0}
+      />
+    );
+
+    expect(wrapper.find("path").prop("d")).toBe(
+      "M 0 100 L 0 0 L 100 100 L 100 100 z"
+    );
 
     wrapper = shallow(
-      <Graph data={data} width={100} height={100} count={11} />
+      <Graph
+        data={[100]}
+        width={100}
+        height={100}
+        count={3}
+        extremumMargin={0}
+      />
     );
     expect(wrapper.find("path").prop("d")).toBe(
-      "M 0 100 L 0 18 L 10 82 L 20 90 L 30 50 L 40 10 L 40 100 z"
+      "M 0 100 L 0 0 L 50 100 L 100 100 L 100 100 z"
+    );
+
+    wrapper = shallow(
+      <Graph
+        data={[100, 50]}
+        width={100}
+        height={100}
+        count={3}
+        extremumMargin={0}
+      />
+    );
+    expect(wrapper.find("path").prop("d")).toBe(
+      "M 0 100 L 0 100 L 50 0 L 100 100 L 100 100 z"
+    );
+
+    wrapper = shallow(
+      <Graph
+        data={[70, 100]}
+        width={100}
+        height={100}
+        count={3}
+        extremumMargin={0}
+      />
+    );
+    expect(wrapper.find("path").prop("d")).toBe(
+      "M 0 100 L 0 0 L 50 66.66666666666667 L 100 100 L 100 100 z"
+    );
+
+    wrapper = shallow(
+      <Graph
+        data={[100, 100]}
+        width={100}
+        height={100}
+        count={3}
+        extremumMargin={0}
+      />
+    );
+    expect(wrapper.find("path").prop("d")).toBe(
+      "M 0 100 L 0 0 L 50 0 L 100 100 L 100 100 z"
+    );
+
+    wrapper = shallow(
+      <Graph
+        data={[100, 100, 100]}
+        width={100}
+        height={100}
+        count={3}
+        extremumMargin={0}
+      />
+    );
+    expect(wrapper.find("path").prop("d")).toBe(
+      "M 0 100 L 0 100 L 50 100 L 100 100 L 100 100 z"
     );
   });
 

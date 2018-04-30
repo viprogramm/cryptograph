@@ -8,7 +8,9 @@ import Price from "./Price/Price";
 describe("Statistics", () => {
   test("without data", () => {
     const wrapper = shallow(<Statistics data={[]} />);
-    expect(wrapper.html()).toBe(null);
+    expect(wrapper.html()).toBe(
+      '<div class="statistics"><span>$0</span> <span>(0%)</span></div>'
+    );
   });
 
   test("prop className", () => {

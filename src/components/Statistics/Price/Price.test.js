@@ -6,7 +6,7 @@ import Price from "./Price";
 describe("Statistics", () => {
   test("without data", () => {
     const wrapper = shallow(<Price data={[]} />);
-    expect(wrapper.html()).toBe(null);
+    expect(wrapper.html()).toBe("<span>$0</span>");
   });
 
   test("with one data value", () => {
